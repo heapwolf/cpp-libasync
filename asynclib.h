@@ -44,7 +44,7 @@ namespace Libasync {
       auto step = [&](auto val) {
 
         results->safely([&](auto &container) {
-          container.push_back(*first);
+          container.push_back(val);
         });
       };
 
@@ -82,7 +82,7 @@ namespace Libasync {
     auto step = [&](auto val) {
 
       results->safely([&](auto &container) {
-        container.push_back(*first);
+        container.push_back(val);
       });
 
       Iterator const second = next(first);

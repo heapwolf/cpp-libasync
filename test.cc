@@ -23,17 +23,17 @@ int main() {
   auto results1 = libasync.eachParallel(arri, [&](int value, auto push) {
 
     this_thread::sleep_for(chrono::milliseconds(rand() % 100 + 1));
-    push(value);
+    push(value + 20);
   });
 
   for(auto &n : results1)
-    cout << n << endl;
+    cout << "NUM" << n << endl;
 
 
   vector<string> arrs1 { "foo", "bar", "bazz" };
 
   auto results2 = libasync.each(arrs1, [&](auto value, auto push) {
-    push(value);
+    push(value + "X");
   });
 
   for (auto &n : results2)
