@@ -10,9 +10,9 @@ c++ test.cc -o test -std=c++1y
 # METHODS
 
 ## EACH PARALLEL
-Run the tasks array of functions in parallel, each without waiting until 
-the previous function has completed the calling thread waits until
-all tasks have completed.
+Run the function in parallel on each of the array values, each without 
+waiting until the previous function has completed. The calling thread 
+waits until all tasks have completed.
  
 ```cpp
 #include "libsync.h"
