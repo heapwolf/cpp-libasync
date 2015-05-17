@@ -1,7 +1,6 @@
 # SYNOPSIS
 This is an idea for some general purpose asynchronous control flow helpers
-that write to concurrent data structures and return the same types that were
-passed in.
+that write to a data structure of the given input type in a thread-safe way.
 
 # BUILD
 ```
