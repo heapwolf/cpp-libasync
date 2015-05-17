@@ -3,7 +3,6 @@
 
 #include <future>
 #include <functional>
-#include <iterator>
 
 namespace Libasync {
 
@@ -17,9 +16,6 @@ namespace Libasync {
       Iterable each(Iterable iterable, Callback cb);
 
   } libasync;
-
-  template <typename... Args>
-    using Next = std::function<void(Args... params)>;
 
   template<class Type>
   class createContainer {
@@ -117,7 +113,6 @@ namespace Libasync {
     _eachParallel(iterable.begin(), iterable.end(), &results, cb);
     return results.value;
   }
-
 }
 
 #endif
