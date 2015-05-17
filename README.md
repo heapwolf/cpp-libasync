@@ -50,12 +50,13 @@ exception back up to the caller.
 ```cpp
 try {
 
-  vector<string> arrs2 { "foo", "bar", "bazz" };
+  vector<string> arr { "foo", "bar", "bazz" };
 
-  auto results3 = libasync.each(arrs2, [&](auto value, auto push) {
+  libasync.each(arr, [&](auto value, auto push) {
     if (value == "bar") throw runtime_error("oops");
     push(value);
   });
+
 }
 catch(const std::exception& ex) {
   cout << ex.what() << endl;
