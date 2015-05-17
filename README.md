@@ -3,6 +3,11 @@ This is an idea for some general purpose asynchronous control flow helpers
 that write to concurrent data structures and return the same types that were
 passed in.
 
+# BUILD
+```
+c++ test.cc -o test -std=c++1y
+```
+
 # METHODS
 
 ## EACH PARALLEL
