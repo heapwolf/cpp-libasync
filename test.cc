@@ -9,14 +9,19 @@
 
 #include "asynclib.h"
 
-int Fibonacci(int x) {
-  if (x<=1) {
-    return 1;
-  }
-  return Fibonacci (x-1)+Fibonacci (x-2);
-}
+#define ASSERT(message, ...) do { \
+      if(!(__VA_ARGS__)) { \
+                  std::cerr << "FAIL: " << message << std::endl; \
+                } \
+      else { \
+                  std::cout << "OK: " << message << std::endl; \
+                } \
+} while(0);
 
 int main() {
+
+  ASSERT("sanity: true is false", true == false);
+  ASSERT("sanity: true is true", true == true);
 
   // TODO
   // refactor into real tests.
@@ -31,6 +36,9 @@ int main() {
     push(value);
   });
 
+  ASSERT("size of new vector is correct", results0.size() == 1);
+  ASSERT("first item in new vector has the right value", results0[0] == "foo");
+
   for(auto &n : results0)
     cout << n << endl;
 
@@ -39,9 +47,11 @@ int main() {
 
   auto results1 = libasync.eachParallel(arri, [&](int value, auto push) {
 
-    //this_thread::sleep_for(chrono::milliseconds(rand() % 100 + 1));
-    push(Fibonacci(value*4));
+    this_thread::sleep_for(chrono::milliseconds(rand() % 100 + 1));
+    push(value*4);
   });
+
+  ASSERT("size of new vector is equal", results1.size() == arri.size());
 
   for(auto &n : results1)
     cout << "NUM" << n << endl;
@@ -53,8 +63,12 @@ int main() {
     push(value + "X");
   });
 
+  ASSERT("size of new vector is correct", results2.size() == 1);
+
   for (auto &n : results2)
     cout << n << endl;
+
+  string exceptionText;
 
   try {
 
@@ -69,6 +83,10 @@ int main() {
   }
   catch(const std::exception& ex) {
     cout << ex.what() << endl;
+    exceptionText = string(ex.what());
+    ASSERT("an exception was thrown", true);
   }
+
+  ASSERT("exception was handed back to the caller thread", exceptionText == "oops");
 }
 

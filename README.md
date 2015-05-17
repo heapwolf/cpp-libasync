@@ -33,9 +33,10 @@ for(auto &el : results)
 
 ## EACH
 Run the function on each item in the array in series, each one running
-once the previous function has completed. If `push` is not called,
-the iteration will stop. You can also terminate flow by pushing `nullptr`
-as the value to `push`.
+once the previous function has completed. For each item the lambda is
+executed in a separate thread. If `push` is not called, the iteration 
+will stop. You can also terminate flow by passing `nullptr` as the 
+value to `push`.
 
 ```cpp
 vector<string> arr { "foo", "bar", "bazz" };
