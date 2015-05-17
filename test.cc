@@ -9,14 +9,21 @@
 
 #include "asynclib.h"
 
+int EXPECT = 0;
+
 #define ASSERT(message, ...) do { \
-      if(!(__VA_ARGS__)) { \
-                  std::cerr << "FAIL: " << message << std::endl; \
-                } \
-      else { \
-                  std::cout << "OK: " << message << std::endl; \
-                } \
+  EXPECT = __COUNTER__; \
+  if(!(__VA_ARGS__)) { \
+    std::cerr << "FAIL: " << message << std::endl; \
+  } \
+  else { \
+    std::cout << "OK: " << message << std::endl; \
+  } \
 } while(0);
+
+#define EXPECTED(num) { \
+  ASSERT("All tests", num == (EXPECT -1)); \
+}
 
 int main() {
 
@@ -88,5 +95,6 @@ int main() {
   }
 
   ASSERT("exception was handed back to the caller thread", exceptionText == "oops");
+  EXPECTED(7);
 }
 
