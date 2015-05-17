@@ -81,6 +81,8 @@ namespace Libasync {
 
     auto step = [&](auto val) {
 
+      if (typeid(val) == typeid(nullptr)) return;
+
       results->safely([&](auto &container) {
         container.push_back(val);
       });

@@ -34,7 +34,8 @@ for(auto &el : results)
 ## EACH
 Run the function on each item in the array in series, each one running
 once the previous function has completed. If `push` is not called,
-the iteration will stop.
+the iteration will stop. You can also terminate flow by pushing `nullptr`
+as the value to `push`.
 
 ```cpp
 vector<string> arr { "foo", "bar", "bazz" };

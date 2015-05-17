@@ -9,6 +9,13 @@
 
 #include "asynclib.h"
 
+int Fibonacci(int x) {
+  if (x<=1) {
+    return 1;
+  }
+  return Fibonacci (x-1)+Fibonacci (x-2);
+}
+
 int main() {
 
   // TODO
@@ -17,22 +24,32 @@ int main() {
   using namespace Libasync;
   using namespace std;
 
-  srand (time(NULL));
+  vector<string> arrs0 { "foo", "bar", "bazz" };
+
+  auto results0 = libasync.each(arrs0, [&](auto value, auto push) {
+    if (value == "bar") return push(nullptr);
+    push(value);
+  });
+
+  for(auto &n : results0)
+    cout << n << endl;
+
+  //srand (time(NULL));
   vector<int> arri { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
 
   auto results1 = libasync.eachParallel(arri, [&](int value, auto push) {
 
-    this_thread::sleep_for(chrono::milliseconds(rand() % 100 + 1));
-    push(value + 20);
+    //this_thread::sleep_for(chrono::milliseconds(rand() % 100 + 1));
+    push(Fibonacci(value*4));
   });
 
   for(auto &n : results1)
     cout << "NUM" << n << endl;
 
-
   vector<string> arrs1 { "foo", "bar", "bazz" };
 
   auto results2 = libasync.each(arrs1, [&](auto value, auto push) {
+    if (value == "bar") return push(nullptr);
     push(value + "X");
   });
 
